@@ -1,0 +1,35 @@
+{
+  "name": "weldit",
+  "version": "1.0.0",
+  "description": "declarative dom bindings",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pimbrouwers/Weld.git"
+  },
+  "keywords": [
+    "dom",
+    "bindings",
+    "declarative",
+    "bindings"
+  ],
+  "author": "Pim Brouwers",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/pimbrouwers/Weld/issues"
+  },
+  "homepage": "https://github.com/pimbrouwers/Weld#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "jasmine": "^3.5.0",
+    "karma": "^5.0.5",
+    "karma-browserify": "^7.0.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^3.1.1",
+    "watchify": "^3.11.1"
+  }
+}
