@@ -1,10 +1,27 @@
 # weld.js
 
 [![Build Status](https://travis-ci.org/pimbrouwers/weld.js.svg?branch=master)](https://travis-ci.org/pimbrouwers/weld.js)
+[![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
+[![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
+[![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
 Declarative DOM bindings for great good.
 
 > Don't select it. [Weld](https://github.com/pimbrouwers/weld.js) it.
+
+## Getting Started
+
+### CDN
+
+```html
+<script src="https://unpkg.com/weld.js/weld.js"></script>
+```
+
+### npm
+
+```bash
+npm install weld.js --save
+```
 
 ## Why?
 
