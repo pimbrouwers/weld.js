@@ -4,7 +4,8 @@
   "description": "declarative dom bindings",
   "main": "index.js",
   "scripts": {
-    "test": "karma"
+		"test": "karma",
+		"start": " browserify weld.js | uglifyjs > weld.min.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,9 @@
     "url": "https://github.com/pimbrouwers/weld.js/issues"
   },
   "homepage": "https://github.com/pimbrouwers/weld.js#readme",
-  "dependencies": {},
+  "dependencies": {
+    "uglify-js": "^3.9.2"
+  },
   "devDependencies": {
     "browserify": "^16.5.1",
     "jasmine": "^3.5.0",

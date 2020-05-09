@@ -46,7 +46,7 @@ function weld() {
     try {
       var binding = new Function(fn)();
     }
-    catch {				
+    catch (e) {				
       console.warn('Invalid binding string: ' + bindingStr);
     }
 
