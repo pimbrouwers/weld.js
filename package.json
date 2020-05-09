@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pimbrouwers/Weld.git"
+    "url": "git+https://github.com/pimbrouwers/weld.js.git"
   },
   "keywords": [
     "dom",
@@ -19,9 +19,9 @@
   "author": "Pim Brouwers",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/pimbrouwers/Weld/issues"
+    "url": "https://github.com/pimbrouwers/weld.js/issues"
   },
-  "homepage": "https://github.com/pimbrouwers/Weld#readme",
+  "homepage": "https://github.com/pimbrouwers/weld.js#readme",
   "dependencies": {},
   "devDependencies": {
     "browserify": "^16.5.1",

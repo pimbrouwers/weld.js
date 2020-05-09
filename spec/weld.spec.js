@@ -1,4 +1,4 @@
-const weld = require('../src');
+const weld = require('../weld');
 
 describe('weld', function() {	
 	afterAll(function (){		
