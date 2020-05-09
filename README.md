@@ -21,14 +21,14 @@ Take the trivial example of a client-side hello world greeter, which receives it
 ```html
 <!-- rest of DOM -->
 <body>
-	<script>var msg = 'pim';</script>
-	<div id="hello-greeter"></div>
+  <script>var msg = 'pim';</script>
+  <div id="hello-greeter"></div>
 
-	<script>
-		var greeter = document.getElementById('hello-greeter');
-		if(greeter)
-			greeter.innerText = 'hello ' + msg;
-	</script>
+  <script>
+    var greeter = document.getElementById('hello-greeter');
+    if(greeter)
+      greeter.innerText = 'hello ' + msg;
+  </script>
 </body>
 <!-- rest of DOM -->
 ```
@@ -40,20 +40,20 @@ Now imagine we wanted multiple greeter elements. In order to do this, we need to
 ```html
 <!-- rest of DOM -->
 <body>
-	<script>var msg = 'pim';</script>
-	<div class="hello-greeter"></div>
+  <script>var msg = 'pim';</script>
+  <div class="hello-greeter"></div>
 
-	<script>msg = 'jim';</script>
-	<div class="hello-greeter"></div>
+  <script>msg = 'jim';</script>
+  <div class="hello-greeter"></div>
 
-	<script>
-		var greeters = document.getElementsByClassName('hello-greeter');
-		if (greeters) {
-			for (var i = 0; i < greeters.length; i++) {
-				greeters[i].innerText = 'hello ' + msg;
-			}
-		}
-	</script>
+  <script>
+    var greeters = document.getElementsByClassName('hello-greeter');
+    if (greeters) {
+      for (var i = 0; i < greeters.length; i++) {
+        greeters[i].innerText = 'hello ' + msg;
+      }
+    }
+  </script>
 </body>
 <!-- rest of DOM -->
 ```
@@ -65,24 +65,24 @@ We can solve this though, using `data-*` attributes.
 ```html
 <!-- rest of DOM -->
 <body>
-	<div class="hello-greeter" data-msg="pim"></div>
+  <div class="hello-greeter" data-msg="pim"></div>
 
-	<div class="hello-greeter" data-msg="jim"></div>
+  <div class="hello-greeter" data-msg="jim"></div>
 
-	<script>
-		var greeters = document.getElementsByClassName('hello-greeter');
-		if (greeters) {
-			for (var i = 0; i < greeters.length; i++) {
-				
-				var msg = 
-					greeters[i].hasAttribute('data-msg') ? 
-						greeters[i].getAttribute('data-msg') :
-						'world';
-						
-				greeters[i].innerText = 'hello ' + msg;
-			}
-		}
-	</script>
+  <script>
+    var greeters = document.getElementsByClassName('hello-greeter');
+    if (greeters) {
+      for (var i = 0; i < greeters.length; i++) {
+        
+        var msg = 
+          greeters[i].hasAttribute('data-msg') ? 
+            greeters[i].getAttribute('data-msg') :
+            'world';
+            
+        greeters[i].innerText = 'hello ' + msg;
+      }
+    }
+  </script>
 </body>
 <!-- rest of DOM -->
 ```
@@ -94,40 +94,40 @@ Again, slightly more code than before. But still reasonable. Where this approach
 ```html
 <!-- rest of DOM -->
 <body>
-	<div data-bind="hello: 'pim'"></div>
-	<div data-bind="hello: 'jim'"></div>
+  <div data-bind="hello: 'pim'"></div>
+  <div data-bind="hello: 'jim'"></div>
 
-	<!-- And how about passing additional parameters? -->
-	
-	<!-- using object literals -->
-	<div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
-	
-	<!-- using functions --> 
-	<div data-bind="helloFunc: function() { return 'hello pim' }"></div>
+  <!-- And how about passing additional parameters? -->
+  
+  <!-- using object literals -->
+  <div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
+  
+  <!-- using functions --> 
+  <div data-bind="helloFunc: function() { return 'hello pim' }"></div>
 
-	<!-- multi-paramter -->
-	<div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+  <!-- multi-paramter -->
+  <div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
-	<script src="weld.js"></script>
-	<script>
-		weld.addBinder('hello', function (el, msg) {
-			el.innerText = 'hello ' + msg;
-		});
+  <script src="weld.js"></script>
+  <script>
+    weld.addBinder('hello', function (el, msg) {
+      el.innerText = 'hello ' + msg;
+    });
 
-		weld.addBinder('helloObj', function (el, obj) {
-			el.innerText = (obj.greeting || 'hello') + ' ' + obj.name;
-		});
+    weld.addBinder('helloObj', function (el, obj) {
+      el.innerText = (obj.greeting || 'hello') + ' ' + obj.name;
+    });
 
-		weld.addBinder('helloFunc', function (el, fn) {
-			el.innerText = fn();
-		});
+    weld.addBinder('helloFunc', function (el, fn) {
+      el.innerText = fn();
+    });
 
-		weld.addBinder('helloMulti', function(el, name, values) {
-			el.innerText = (values.greeting || 'hello') + ' ' + name;
-		});
+    weld.addBinder('helloMulti', function(el, name, values) {
+      el.innerText = (values.greeting || 'hello') + ' ' + name;
+    });
 
-		weld.applyBindings(); //activate weld
-	</script>
+    weld.applyBindings(); //activate weld
+  </script>
 </body>
 <!-- rest of DOM -->
 ```
@@ -152,26 +152,26 @@ Instead, using weld.js we can declaratively inject our components removing any r
 <script src="weld.js"></script>
 <script src="mithril.js"></script>
 <script>
-	// A mithril component
-	function HelloWorld() {
-		return {
-			view: function (vnode) {			
-				var msg = 'hello ' + vnode.attrs.name;		
-				return m('div', msg);
-			}
-		}
-	}
-	
-	weld.addBinder('hello', function (el, name) {
-		// We encapsulate in a closure so we can pass arguemtns
-		m.mount(el, {
-			view: function () {					
-				return m(HelloWorld, { name: name });
-			}
-		})
-	});
+  // A mithril component
+  function HelloWorld() {
+    return {
+      view: function (vnode) {			
+        var msg = 'hello ' + vnode.attrs.name;		
+        return m('div', msg);
+      }
+    }
+  }
+  
+  weld.addBinder('hello', function (el, name) {
+    // We encapsulate in a closure so we can pass arguemtns
+    m.mount(el, {
+      view: function () {					
+        return m(HelloWorld, { name: name });
+      }
+    })
+  });
 
-	weld.applyBindings();
+  weld.applyBindings();
 </script>
 ```
 
