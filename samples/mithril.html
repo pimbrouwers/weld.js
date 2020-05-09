@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>weld.js + mithril.js Example</title>
+</head>
+
+<body>
+
+	<div data-bind="hello: 'pim'"></div>
+
+	<script src="../weld.js"></script>
+	<script src="https://unpkg.com/mithril/mithril.min.js"></script>
+	<script>
+		// A mithril component
+		function HelloWorld() {
+			return {
+				view: function (vnode) {			
+					var msg = 'hello ' + vnode.attrs.name;		
+					return m('div', msg);
+				}
+			}
+		}
+		
+		weld.addBinder('hello', function (el, name) {
+			// We encapsulate in a closure so we can pass arguemtns
+			m.mount(el, {
+				view: function () {					
+					return m(HelloWorld, { name: name });
+				}
+			})
+		});
+
+		weld.applyBindings();
+	</script>
+</body>
+
+</html>
