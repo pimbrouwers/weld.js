@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "declarative dom bindings",
   "main": "index.js",
+  "files": [
+    "weld*.js",    
+  ],
   "scripts": {
 		"test": "karma",
 		"start": " browserify weld.js | uglifyjs > weld.min.js"
