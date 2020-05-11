@@ -25,7 +25,7 @@ npm install weld.js --save
 
 ## Why?
 
-One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScrip, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developer's. 
+One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developer's. 
 
 > We essentially ask CSS selectors to also become "JavaScript hooks", which violates one of the core tenants of software developent, Single-responsibility principle.
 
