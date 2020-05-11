@@ -87,7 +87,7 @@ function weld() {
   }
 };
 
-var w = weld();
+var weld = weld();
 
-if (typeof module !== "undefined") module["exports"] = w;
-else window.weld = w;
+if (typeof module !== "undefined") module["exports"] = weld;
+else window.weld = weld;
