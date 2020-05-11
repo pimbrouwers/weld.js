@@ -5,6 +5,18 @@ describe('weld', function() {
     weld.applyBindings()
   });
 
+  it('empty binding', function(){
+    var binder = 'testEmpty'
+
+    var element = document.createElement('div');
+    element.setAttribute('data-bind', binder);
+    document.body.appendChild(element);
+
+    weld.addBinder(binder, function(el) {           
+      expect(true).toEqual(true);
+    });
+  });
+
   it('string binding value', function(){		
     var binder = "testString"
     var expected = "here";
@@ -69,7 +81,7 @@ describe('weld', function() {
     element.setAttribute('data-bind', binder + ": { name: 'weld', version: 1, awesome: true }");
     document.body.appendChild(element);
     
-    weld.addBinder(binder, function(el, obj) {					
+    weld.addBinder(binder, function(el, obj) {		      
       expect(obj.name).toEqual(expected.name);
       expect(obj.version).toEqual(expected.version);
       expect(obj.awesome).toEqual(expected.awesome);			

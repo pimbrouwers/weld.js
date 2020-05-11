@@ -10,6 +10,7 @@
 <body>
 
 	<div data-bind="hello: 'hello pim'"></div>
+	<div data-bind="helloEmpty"></div>
 	<div data-bind="helloFunc: function() { return 'pim' }"></div>
 	<div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
@@ -24,6 +25,10 @@
 		weld.addBinder('hello', function (el, msg) {
 			el.innerText = msg;
 		});
+
+		weld.addBinder('helloEmpty', function(el) {
+			el.innerText = 'hello world';
+		})
 
 		weld.addBinder('helloFunc', function (el, fn) {
 			el.innerText = 'hello ' + fn();

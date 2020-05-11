@@ -5,7 +5,7 @@
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
-Declarative DOM bindings for great good.
+Declarative DOM bindings for great good. And it only costs you **998 bytes**.
 
 > Don't select it. [Weld](https://github.com/pimbrouwers/weld.js) it.
 

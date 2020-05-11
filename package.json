@@ -1,10 +1,11 @@
 {
   "name": "weld.js",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "declarative dom bindings",
-  "main": "index.js",
+  "main": "weld",
+  "browser": "weld.js",
   "files": [
-    "weld*.js",    
+    "weld*.js"
   ],
   "scripts": {
 		"test": "karma",
@@ -27,7 +28,6 @@
   },
   "homepage": "https://github.com/pimbrouwers/weld.js#readme",
   "dependencies": {
-    "uglify-js": "^3.9.2"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
@@ -36,6 +36,7 @@
     "karma-browserify": "^7.0.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^3.1.1",
+    "uglify-js": "^3.9.2",
     "watchify": "^3.11.1"
   }
 }
