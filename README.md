@@ -23,6 +23,26 @@ Declarative DOM bindings for great good. And it only costs you **998 bytes**.
 npm install weld.js --save
 ```
 
+## Usage
+
+```html
+<!-- Binding values -->
+<div data-bind="hello: 'pim'"></div>
+<div data-bind="hello: 'jim'"></div>
+
+<!-- And how about passing additional parameters? -->
+  
+<!-- using object literals -->
+<div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
+  
+<!-- using functions --> 
+<div data-bind="helloFunc: function() { return 'hello pim' }"></div>
+
+<!-- multi-paramter -->
+<div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+
+```
+
 ## Why?
 
 One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developer's. 
