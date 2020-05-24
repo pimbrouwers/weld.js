@@ -26,21 +26,44 @@ npm install weld.js --save
 ## Usage
 
 ```html
-<!-- Binding values -->
-<div data-bind="hello: 'pim'"></div>
-<div data-bind="hello: 'jim'"></div>
+<!-- rest of DOM -->
+<body>
+  <div data-bind="hello: 'pim'"></div>
+  <div data-bind="hello: 'jim'"></div>
 
-<!-- And how about passing additional parameters? -->
+  <!-- And how about passing additional parameters? -->
   
-<!-- using object literals -->
-<div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
+  <!-- using object literals -->
+  <div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
   
-<!-- using functions --> 
-<div data-bind="helloFunc: function() { return 'hello pim' }"></div>
+  <!-- using functions --> 
+  <div data-bind="helloFunc: function() { return 'hello pim' }"></div>
 
-<!-- multi-paramter -->
-<div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+  <!-- multi-paramter -->
+  <div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
+  <script src="weld.js"></script>
+  <script>
+    weld.addBinder('hello', function (el, msg) {
+      el.innerText = 'hello ' + msg;
+    });
+
+    weld.addBinder('helloObj', function (el, obj) {
+      el.innerText = (obj.greeting || 'hello') + ' ' + obj.name;
+    });
+
+    weld.addBinder('helloFunc', function (el, fn) {
+      el.innerText = fn();
+    });
+
+    weld.addBinder('helloMulti', function(el, name, values) {
+      el.innerText = (values.greeting || 'hello') + ' ' + name;
+    });
+
+    weld.applyBindings(); //activate weld
+  </script>
+</body>
+<!-- rest of DOM -->
 ```
 
 ## Why?
