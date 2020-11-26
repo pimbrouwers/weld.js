@@ -13,20 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pimbrouwers/weld.js.git"
+    "url": "git+https://github.com/nhlpa/weld.js.git"
   },
   "keywords": [
     "dom",
     "bindings",
     "declarative",
     "bindings"
-  ],
-  "author": "Pim Brouwers",
+  ],  
+  "author": "National Hockey League Players' Assocation - Pim Brouwers & contributors",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/pimbrouwers/weld.js/issues"
+    "url": "https://github.com/nhlpa/weld.js/issues"
   },
-  "homepage": "https://github.com/pimbrouwers/weld.js#readme",
+  "homepage": "https://github.com/nhlpa/weld.js#readme",
   "dependencies": {
   },
   "devDependencies": {
