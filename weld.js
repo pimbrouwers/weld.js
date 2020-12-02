@@ -39,7 +39,7 @@
     }
 
     function parseBindingString(el) {
-      var bindingStr = getAttr(el, 'data-bind');
+      var bindingStr = getAttr(el, 'data-weld');
 
       if (bindingStr === null)
         return null;

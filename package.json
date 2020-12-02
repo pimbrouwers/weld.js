@@ -8,8 +8,8 @@
     "weld*.js"
   ],
   "scripts": {
-		"test": "karma",
-		"start": " browserify weld.js | uglifyjs > weld.min.js"
+    "test": "karma",
+    "start": " browserify weld.js | uglifyjs > weld.min.js"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,14 @@
     "bindings",
     "declarative",
     "bindings"
-  ],  
+  ],
   "author": "National Hockey League Players' Assocation - Pim Brouwers & contributors",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nhlpa/weld.js/issues"
   },
   "homepage": "https://github.com/nhlpa/weld.js#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "browserify": "^16.5.1",
     "jasmine": "^3.5.0",

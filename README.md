@@ -5,11 +5,15 @@
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
-Declarative DOM bindings for great good. And it only costs you **998 bytes**.
+Declarative DOM bindings for great good. And it only costs you **998 bytes**. 
 
 > Don't select it. [Weld](https://github.com/nhlpa/weld.js) it.
 
 ## Getting Started
+
+One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developers. 
+
+> We essentially ask CSS selectors to also become "JavaScript hooks", which violates one of the core tenants of software developent, single-responsibility principle.
 
 ### CDN
 
@@ -25,25 +29,30 @@ npm install weld.js --save
 
 ## Usage
 
+Attaching functionality to DOM elements is achieved using the custom attribute `data-weld="binderName: ..."`, where "binderName" is the identifer for a binder defined using `weld.addBinder()`. 
+
 ```html
 <!-- rest of DOM -->
 <body>
-  <div data-bind="hello: 'pim'"></div>
-  <div data-bind="hello: 'jim'"></div>
+  <div data-weld="hello: 'pim'"></div>
+  <div data-weld="hello: 'jim'"></div>
 
   <!-- And how about passing additional parameters? -->
   
   <!-- using object literals -->
-  <div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
+  <div data-weld="helloObj: { name: 'pim', greeting: 'hello' }"></div>
   
   <!-- using functions --> 
-  <div data-bind="helloFunc: function() { return 'hello pim' }"></div>
+  <div data-weld="helloFunc: function() { return 'hello pim' }"></div>
 
   <!-- multi-paramter -->
-  <div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+  <div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
   <script src="weld.js"></script>
+
+  <!-- define our binders -->
   <script>
+    // a simple gretting binder
     weld.addBinder('hello', function (el, msg) {
       el.innerText = 'hello ' + msg;
     });
@@ -66,13 +75,47 @@ npm install weld.js --save
 <!-- rest of DOM -->
 ```
 
+## Usage with modern JavaScript Frameworks
+
+Many of the modern JavaScript frameworks, which typically angle their value proposition toward single-page application (SPA) development. But many of them are actually extremely viable options for multi-page application (MPA) development as well. Think of these as server-side application with ~sprinklings~ of JavaScript enhancements.
+
+When building a SPA we create a root element, `<div id="root"></div>`, pass it to our framework of choice and it takes over from there. Effectively eliminating the brittle CSS<->JS relationship. But in MPA development, there isn't a clean entry-point like this, since the markup is primarily generated server-side. Thus, we often turn to using existing (or creating new) classes to begin attaching our JavaScript logic. 
+
+Instead, using weld.js we can declaratively inject our components removing any reliance on selectors for activation. 
+
+### An example using [mithril.js](https://mithril.js.org/):
+
+```html
+<div data-weld="hello: 'pim'"></div>
+
+<script src="weld.js"></script>
+<script src="mithril.js"></script>
+<script>
+  // A mithril component
+  function HelloWorld() {
+    return {
+      view: function (vnode) {			
+        var msg = 'hello ' + vnode.attrs.name;		
+        return m('div', msg);
+      }
+    }
+  }
+  
+  weld.addBinder('hello', function (el, name) {
+    // We encapsulate in a closure so we can pass arguemtns
+    m.mount(el, {
+      view: function () {					
+        return m(HelloWorld, { name: name });
+      }
+    })
+  });
+
+  weld.applyBindings();
+</script>
+```
+
+
 ## Why?
-
-One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developer's. 
-
-> We essentially ask CSS selectors to also become "JavaScript hooks", which violates one of the core tenants of software developent, Single-responsibility principle.
-
-## A simple example
 
 Take the trivial example of a client-side hello world greeter, which receives it's data (i.e. name) from the server.
 
@@ -154,19 +197,19 @@ Again, slightly more code than before. But still reasonable. Where this approach
 ```html
 <!-- rest of DOM -->
 <body>
-  <div data-bind="hello: 'pim'"></div>
-  <div data-bind="hello: 'jim'"></div>
+  <div data-weld="hello: 'pim'"></div>
+  <div data-weld="hello: 'jim'"></div>
 
   <!-- And how about passing additional parameters? -->
   
   <!-- using object literals -->
-  <div data-bind="helloObj: { name: 'pim', greeting: 'hello' }"></div>
+  <div data-weld="helloObj: { name: 'pim', greeting: 'hello' }"></div>
   
   <!-- using functions --> 
-  <div data-bind="helloFunc: function() { return 'hello pim' }"></div>
+  <div data-weld="helloFunc: function() { return 'hello pim' }"></div>
 
   <!-- multi-paramter -->
-  <div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+  <div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
   <script src="weld.js"></script>
   <script>
@@ -196,49 +239,10 @@ By using weld.js we've created a _declarative_ way to associate JavaScript code 
 
 So next time you think of reaching for a DOM selector... "weld it, don't select it!".
 
-## Usage with modern JavaScript Frameworks
-
-Many of the modern JavaScript frameworks, which typically angle their value proposition toward single-page application (SPA) development. But many of them are actually extremely viable options for multi-page application (MPA) development as well. Think of these as server-side application with ~sprinklings~ of JavaScript enhancements.
-
-When building a SPA we create a root element, `<div id="root"></div>`, pass it to our framework of choice and it takes over from there. Effectively eliminating the brittle CSS<->JS relationship. But in MPA development, there isn't a clean entry-point like this, since the markup is primarily generated server-side. Thus, we often turn to using existing (or creating new) classes to begin attaching our JavaScript logic. 
-
-Instead, using weld.js we can declaratively inject our components removing any reliance on selectors for activation. 
-
-### An example using [mithril.js](https://mithril.js.org/):
-
-```html
-<div data-bind="hello: 'pim'"></div>
-
-<script src="weld.js"></script>
-<script src="mithril.js"></script>
-<script>
-  // A mithril component
-  function HelloWorld() {
-    return {
-      view: function (vnode) {			
-        var msg = 'hello ' + vnode.attrs.name;		
-        return m('div', msg);
-      }
-    }
-  }
-  
-  weld.addBinder('hello', function (el, name) {
-    // We encapsulate in a closure so we can pass arguemtns
-    m.mount(el, {
-      view: function () {					
-        return m(HelloWorld, { name: name });
-      }
-    })
-  });
-
-  weld.applyBindings();
-</script>
-```
-
 ## Find a bug?
 
 There's an [issue](https://github.com/nhlpa/weld.js/issues) for that.
 
 ## License
 
-Built with ♥ by [Pim Brouwers](https://github.com/nhlpa) in Toronto, ON. Licensed under [Apache License 2.0](https://github.com/nhlpa/weld.js/blob/master/LICENSE).
+Licensed under [Apache License 2.0](https://github.com/nhlpa/weld.js/blob/master/LICENSE).

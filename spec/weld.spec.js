@@ -9,7 +9,7 @@ describe('weld', function() {
     var binder = 'testEmpty'
 
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder);
+    element.setAttribute('data-weld', binder);
     document.body.appendChild(element);
 
     weld.addBinder(binder, function(el) {           
@@ -22,7 +22,7 @@ describe('weld', function() {
     var expected = "here";
 
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ': "' + expected + '"');
+    element.setAttribute('data-weld', binder + ': "' + expected + '"');
     document.body.appendChild(element);
 
     weld.addBinder(binder, function(el, msg) {			
@@ -35,7 +35,7 @@ describe('weld', function() {
     var expected = 1;
 
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ': ' + expected);
+    element.setAttribute('data-weld', binder + ': ' + expected);
     document.body.appendChild(element);
 
     weld.addBinder(binder, function(el, msg) {			
@@ -48,7 +48,7 @@ describe('weld', function() {
     var expected = true;
 
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ': '+ expected);
+    element.setAttribute('data-weld', binder + ': '+ expected);
     document.body.appendChild(element);
 
     weld.addBinder(binder, function(el, msg) {			
@@ -63,7 +63,7 @@ describe('weld', function() {
     var expected3 = 3;
 
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ': "' + expected + '", p2: ' + expected2 + ', p3: ' + expected3);
+    element.setAttribute('data-weld', binder + ': "' + expected + '", p2: ' + expected2 + ', p3: ' + expected3);
     document.body.appendChild(element);
 
     weld.addBinder(binder, function(el, msg, values) {					
@@ -78,7 +78,7 @@ describe('weld', function() {
     var expected = { name: "weld", "version": 1, "awesome": true };
     
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ": { name: 'weld', version: 1, awesome: true }");
+    element.setAttribute('data-weld', binder + ": { name: 'weld', version: 1, awesome: true }");
     document.body.appendChild(element);
     
     weld.addBinder(binder, function(el, obj) {		      
@@ -92,7 +92,7 @@ describe('weld', function() {
     var binder = "testExpression"
     var expected = 0;	
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ": function() { return 0; }");
+    element.setAttribute('data-weld', binder + ": function() { return 0; }");
     document.body.appendChild(element);
     
     weld.addBinder(binder, function(el, expr) {						
@@ -104,7 +104,7 @@ describe('weld', function() {
     var binder = "testTernary"
     var expected = 'no';	
     var element = document.createElement('div');
-    element.setAttribute('data-bind', binder + ": 0 == 1 ? 'yes' : 'no'");
+    element.setAttribute('data-weld', binder + ": 0 == 1 ? 'yes' : 'no'");
     document.body.appendChild(element);
     
     weld.addBinder(binder, function(el, expr) {									

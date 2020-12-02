@@ -9,14 +9,14 @@
 
 <body>
 
-	<div data-bind="hello: 'hello pim'"></div>
-	<div data-bind="helloEmpty"></div>
-	<div data-bind="helloFunc: function() { return 'pim' }"></div>
-	<div data-bind="helloMulti: 'pim', greeting: 'goodbye'"></div>
+	<div data-weld="hello: 'hello pim'"></div>
+	<div data-weld="helloEmpty"></div>
+	<div data-weld="helloFunc: function() { return 'pim' }"></div>
+	<div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
 
-	<div data-bind="expr: function(){ return 'hello pim from an expression' }"></div>
+	<div data-weld="expr: function(){ return 'hello pim from an expression' }"></div>
 
-	<div data-bind="tern: 1 > 2 ? 'hello pim' : 'goodbye pim'"></div>
+	<div data-weld="tern: 1 > 2 ? 'hello pim' : 'goodbye pim'"></div>
 
 	
 
