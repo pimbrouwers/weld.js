@@ -1,7 +1,7 @@
 /*!
- * weld.js v1.x (https://github.com/nhlpa/weld.js)
- * Copyright 2020 National Hockey League Players' Assocation
- * Licensed under Apache 2.0 (https://github.com/nhlpa/weld.js/blob/master/LICENSE)
+ * weld.js v2.x (https://github.com/pimbrouwers/weld.js)
+ * Copyright 2020 Pim Brouwers
+ * Licensed under Apache 2.0 (https://github.com/pimbrouwers/weld.js/blob/master/LICENSE)
  */
 ;(function(GLOBAL) {
   function weld() {

@@ -1,13 +1,13 @@
 # weld.js
 
-[![Build Status](https://travis-ci.org/nhlpa/weld.js.svg?branch=master)](https://travis-ci.org/nhlpa/weld.js)
+[![Build Status](https://travis-ci.org/pimbrouwers/weld.js.svg?branch=master)](https://travis-ci.org/pimbrouwers/weld.js)
 [![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
 Declarative DOM bindings for great good. And it only costs you **998 bytes**. 
 
-> Don't select it. [Weld](https://github.com/nhlpa/weld.js) it.
+> Don't select it. [Weld](https://github.com/pimbrouwers/weld.js) it.
 
 ## Getting Started
 
@@ -241,8 +241,8 @@ So next time you think of reaching for a DOM selector... "weld it, don't select 
 
 ## Find a bug?
 
-There's an [issue](https://github.com/nhlpa/weld.js/issues) for that.
+There's an [issue](https://github.com/pimbrouwers/weld.js/issues) for that.
 
 ## License
 
-Licensed under [Apache License 2.0](https://github.com/nhlpa/weld.js/blob/master/LICENSE).
+Licensed under [Apache License 2.0](https://github.com/pimbrouwers/weld.js/blob/master/LICENSE).
