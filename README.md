@@ -1,17 +1,17 @@
 # weld.js
 
 [![Build Status](https://travis-ci.org/pimbrouwers/weld.js.svg?branch=master)](https://travis-ci.org/pimbrouwers/weld.js)
-[![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
-[![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js) 
+[![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js)
+[![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
-Declarative DOM bindings for great good. And it only costs you **998 bytes**. 
+Declarative DOM bindings for great good. And it only costs you **998 bytes**.
 
 > Don't select it. [Weld](https://github.com/pimbrouwers/weld.js) it.
 
 ## Getting Started
 
-One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developers. 
+One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developers.
 
 > We essentially ask CSS selectors to also become "JavaScript hooks", which violates one of the core tenants of software developent, single-responsibility principle.
 
@@ -29,97 +29,120 @@ npm install weld.js --save
 
 ## Usage
 
-Attaching functionality to DOM elements is achieved using the custom attribute `data-weld="binderName: ..."`, where "binderName" is the identifer for a binder defined using `weld.addBinder()`. 
+Attaching functionality to DOM elements is achieved using the custom attribute `data-weld="binderName: ..."`, where "binderName" is the identifer for a binder defined using `weld.addBinder()`.
 
 ```html
-<!-- rest of DOM -->
-<body>
-  <div data-weld="hello: 'pim'"></div>
-  <div data-weld="hello: 'jim'"></div>
+<!-- a basic binding -->
+<div data-bind="greet"></div>
 
-  <!-- And how about passing additional parameters? -->
-  
-  <!-- using object literals -->
-  <div data-weld="helloObj: { name: 'pim', greeting: 'hello' }"></div>
-  
-  <!-- using functions --> 
-  <div data-weld="helloFunc: function() { return 'hello pim' }"></div>
+<!-- passing a string -->
+<div data-bind="greetString: pim"></div>
 
-  <!-- multi-paramter -->
-  <div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
+<!-- passing an integer  -->
+<div data-bind="greetString: 1"></div>
 
-  <script src="weld.js"></script>
+<!-- designating a named target -->
+<div data-bind="greetTarget: pim">
+    <div data-target=greeting></div>
+</div>
 
-  <!-- define our binders -->
-  <script>
-    // a simple gretting binder
-    weld.addBinder('hello', function (el, msg) {
-      el.innerText = 'hello ' + msg;
-    });
+<!-- using an object literal -->
+<div data-bind="greetObject: {name:'pim'}"></div>
 
-    weld.addBinder('helloObj', function (el, obj) {
-      el.innerText = (obj.greeting || 'hello') + ' ' + obj.name;
-    });
+<!-- using multiple attrbutes -->
+<div data-bind="greetMulti: {name:'pim', greeting:'Howdy', intVal: 1, boolVal: true}">
+    <div>
+        <span data-target=greeting></span>
+        <span data-target=name></span>
+    </div>
+</div>
 
-    weld.addBinder('helloFunc', function (el, fn) {
-      el.innerText = fn();
-    });
+<script src="weld.js"></script>
 
-    weld.addBinder('helloMulti', function(el, name, values) {
-      el.innerText = (values.greeting || 'hello') + ' ' + name;
-    });
+<!-- define our bindings -->
+<script>
+    weld.bind('greet', function (el) {
+        el.innerHTML = 'Hello world'
+    })
 
-    weld.applyBindings(); //activate weld
-  </script>
-</body>
-<!-- rest of DOM -->
+    weld.bind('greetString', function (el, attr) {
+        const message = 'Hello ' + attr
+        el.innerHTML = message
+    })
+
+    weld.bind('greetTarget', function (el, attr, targets) {
+        const message = 'Hello ' + attr
+        targets.greeting ?
+            targets.greeting.innerHTML = message :
+            el.innerHTML = message
+    })
+
+    weld.bind('greetObject', function (el, attr) {
+        const message = 'Hello ' + attr.name
+        el.innerHTML = message
+    })
+
+    weld.bind('greetMulti', function (el, attr, targets) {
+        const greeting = attr.greeting ? attr.greeting : "Hello"
+        const name = attr.name ? attr.name : "world"
+        targets.greeting.innerHTML = greeting
+        targets.name.innerHTML = name
+    })
+
+    weld.init()
+</script>
 ```
 
 ## Usage with modern JavaScript Frameworks
 
 Many of the modern JavaScript frameworks, which typically angle their value proposition toward single-page application (SPA) development. But many of them are actually extremely viable options for multi-page application (MPA) development as well. Think of these as server-side application with ~sprinklings~ of JavaScript enhancements.
 
-When building a SPA we create a root element, `<div id="root"></div>`, pass it to our framework of choice and it takes over from there. Effectively eliminating the brittle CSS<->JS relationship. But in MPA development, there isn't a clean entry-point like this, since the markup is primarily generated server-side. Thus, we often turn to using existing (or creating new) classes to begin attaching our JavaScript logic. 
+When building a SPA we create a root element, `<div id="root"></div>`, pass it to our framework of choice and it takes over from there. Effectively eliminating the brittle CSS<->JS relationship. But in MPA development, there isn't a clean entry-point like this, since the markup is primarily generated server-side. Thus, we often turn to using existing (or creating new) classes to begin attaching our JavaScript logic.
 
-Instead, using weld.js we can declaratively inject our components removing any reliance on selectors for activation. 
+Instead, using weld.js we can declaratively inject our components removing any reliance on selectors for activation.
 
 ### An example using [mithril.js](https://mithril.js.org/):
 
 ```html
-<div data-weld="hello: 'pim'"></div>
+<div data-bind="greet: 'pim'"></div>
 
-<script src="weld.js"></script>
-<script src="mithril.js"></script>
+<script src="./mithril.min.js"></script>
+<script src="../weld.min.js"></script>
 <script>
-  // A mithril component
-  function HelloWorld() {
-    return {
-      view: function (vnode) {			
-        var msg = 'hello ' + vnode.attrs.name;		
-        return m('div', msg);
-      }
-    }
-  }
-  
-  weld.addBinder('hello', function (el, name) {
-    // We encapsulate in a closure so we can pass arguemtns
-    m.mount(el, {
-      view: function () {					
-        return m(HelloWorld, { name: name });
-      }
-    })
-  });
+    // A mithril component
+    function HelloWorld() {
+        let count = 0
 
-  weld.applyBindings();
+        function OnClick() {
+            count++
+        }
+
+        return {
+            view: function(vnode){
+                var msg = 'Hello ' + vnode.attrs.name
+                return m('div', [
+                    m('p', `${msg}. You clicked the button ${count} times.`),
+                    m('button', { onclick: OnClick }, 'Click me',),
+                ])
+            }
+        }
+    }
+
+    // Bind the greet attribute to the HelloWorld component
+    weld.bind('greet', function (el, name) {
+        m.mount(el, { view: () => m(HelloWorld, { name: name }) })
+    })
+
+    // Initialize weld
+    weld.init()
 </script>
 ```
-
 
 ## Why?
 
 Take the trivial example of a client-side hello world greeter, which receives it's data (i.e. name) from the server.
 
-### Using DOM selectors 
+### Using DOM selectors
 
 ```html
 <!-- rest of DOM -->
@@ -176,12 +199,12 @@ We can solve this though, using `data-*` attributes.
     var greeters = document.getElementsByClassName('hello-greeter');
     if (greeters) {
       for (var i = 0; i < greeters.length; i++) {
-        
-        var msg = 
-          greeters[i].hasAttribute('data-msg') ? 
+
+        var msg =
+          greeters[i].hasAttribute('data-msg') ?
             greeters[i].getAttribute('data-msg') :
             'world';
-            
+
         greeters[i].innerText = 'hello ' + msg;
       }
     }
@@ -194,48 +217,7 @@ Again, slightly more code than before. But still reasonable. Where this approach
 
 **This** is where weld.js comes to the rescue
 
-```html
-<!-- rest of DOM -->
-<body>
-  <div data-weld="hello: 'pim'"></div>
-  <div data-weld="hello: 'jim'"></div>
-
-  <!-- And how about passing additional parameters? -->
-  
-  <!-- using object literals -->
-  <div data-weld="helloObj: { name: 'pim', greeting: 'hello' }"></div>
-  
-  <!-- using functions --> 
-  <div data-weld="helloFunc: function() { return 'hello pim' }"></div>
-
-  <!-- multi-paramter -->
-  <div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
-
-  <script src="weld.js"></script>
-  <script>
-    weld.addBinder('hello', function (el, msg) {
-      el.innerText = 'hello ' + msg;
-    });
-
-    weld.addBinder('helloObj', function (el, obj) {
-      el.innerText = (obj.greeting || 'hello') + ' ' + obj.name;
-    });
-
-    weld.addBinder('helloFunc', function (el, fn) {
-      el.innerText = fn();
-    });
-
-    weld.addBinder('helloMulti', function(el, name, values) {
-      el.innerText = (values.greeting || 'hello') + ' ' + name;
-    });
-
-    weld.applyBindings(); //activate weld
-  </script>
-</body>
-<!-- rest of DOM -->
-```
-
-By using weld.js we've created a _declarative_ way to associate JavaScript code to our DOM. The `hello` binding will only ever be one thing, a hook between our DOM and our JS. We've also now sandboxed our code within a closure, which is key to preventing leaky state. 
+By using weld.js we've created a _declarative_ way to associate JavaScript code to our DOM. The `hello` binding will only ever be one thing, a hook between our DOM and our JS. We've also now sandboxed our code within a closure, which is key to preventing leaky state.
 
 So next time you think of reaching for a DOM selector... "weld it, don't select it!".
 

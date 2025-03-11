@@ -2,52 +2,74 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>weld.js Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js Example</title>
 </head>
 
 <body>
+    <h1>weld.js</h1>
 
-	<div data-weld="hello: 'hello pim'"></div>
-	<div data-weld="helloEmpty"></div>
-	<div data-weld="helloFunc: function() { return 'pim' }"></div>
-	<div data-weld="helloMulti: 'pim', greeting: 'goodbye'"></div>
+    <!-- a basic binding -->
+    <div data-bind="greet"></div>
 
-	<div data-weld="expr: function(){ return 'hello pim from an expression' }"></div>
+    <!-- passing a string -->
+    <div data-bind="greetString: pim"></div>
 
-	<div data-weld="tern: 1 > 2 ? 'hello pim' : 'goodbye pim'"></div>
+    <!-- passing an integer  -->
+    <div data-bind="greetString: 1"></div>
 
-	
+    <!-- passing an boolean  -->
+    <div data-bind="greetString: false"></div>
 
-	<script src="../weld.js"></script>
-	<script>
-		weld.addBinder('hello', function (el, msg) {
-			el.innerText = msg;
-		});
+    <!-- designating a named target -->
+    <div data-bind="greetTarget: pim">
+        <div data-target=greeting></div>
+    </div>
 
-		weld.addBinder('helloEmpty', function(el) {
-			el.innerText = 'hello world';
-		})
+    <!-- using an object literal -->
+    <div data-bind="greetObject: {name:'pim'}"></div>
 
-		weld.addBinder('helloFunc', function (el, fn) {
-			el.innerText = 'hello ' + fn();
-		});
+    <!-- using multiple attrbutes -->
+    <div data-bind="greetMulti: {name:'pim', greeting:'Howdy', intVal: 1, boolVal: true}">
+        <div>
+            <span data-target=greeting></span>
+            <span data-target=name></span>
+        </div>
+    </div>
 
-		weld.addBinder('helloMulti', function(el, name, values) {
-			el.innerText = (values.greeting || 'hello') + ' ' + name;
-		});
+    <script src="../weld.js"></script>
+    <script>
+        weld.bind('greet', function (el) {
+            el.innerHTML = 'Hello world'
+        })
 
-		weld.addBinder('expr', function (el, expr) {
-			el.innerText = expr();
-		});
+        weld.bind('greetString', function (el, attr) {
+            const message = 'Hello ' + attr
+            el.innerHTML = message
+        })
 
-		weld.addBinder('tern', function (el, tern) {
-			el.innerText = tern;
-		});
+        weld.bind('greetTarget', function (el, attr, targets) {
+            const message = 'Hello ' + attr
+            targets.greeting ?
+                targets.greeting.innerHTML = message :
+                el.innerHTML = message
+        })
 
-		weld.applyBindings();
-	</script>
+        weld.bind('greetObject', function (el, attr) {
+            const message = 'Hello ' + attr.name
+            el.innerHTML = message
+        })
+
+        weld.bind('greetMulti', function (el, attr, targets) {
+            const greeting = attr.greeting ? attr.greeting : "Hello"
+            const name = attr.name ? attr.name : "world"
+            targets.greeting.innerHTML = greeting
+            targets.name.innerHTML = name
+        })
+
+        weld.init()
+    </script>
 </body>
 
 </html>

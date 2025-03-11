@@ -1,109 +1,79 @@
-/*!
- * weld.js v2.x (https://github.com/pimbrouwers/weld.js)
- * Copyright 2020 Pim Brouwers
- * Licensed under Apache 2.0 (https://github.com/pimbrouwers/weld.js/blob/master/LICENSE)
- */
-;(function(GLOBAL) {
-  function weld() {
-    var _bindings = [];
-    var _binders = {};
+; (function (GLOBAL) {
+    'use strict'
 
-    return {
-      addBinder: function (name, b) {
-        _binders[name] = b;
-      },
-      applyBindings: function (el) {
-        traverseDomForBindings(el === undefined ? document.body : el);
-        window.addEventListener('unload', unloadBindings);
-        executeBindings();
-      }
-    };
+    let binders = {}
 
-    function executeBindings() {        
-      _bindings.forEach(function (b) {        
-        if (_binders[b.name])
-          _binders[b.name](b.el, b.value, b.additional);
-      });
+    const weld = {
+        bind: function (name, fn) {
+            binders[name] = fn
+        },
+        init: function (root) {
+            if (root == null) {
+                root = document.body
+            }
+
+            const dataBinds = root.querySelectorAll('[data-bind]')
+
+            for (const el of dataBinds) {
+                const dataBind = el.dataset.bind
+
+                const targetEls = el.querySelectorAll('*[data-target]')
+                let targets = {}
+
+                targetEls.forEach(targetEl => {
+                    targets[targetEl.dataset.target] = targetEl
+                })
+
+                const sepIndex = dataBind.indexOf(':')
+
+                if (sepIndex < 0) {
+                    binders[dataBind](el, targets)
+                }
+                else {
+                    const name = dataBind.substring(0, sepIndex)
+                    const bindingStr = dataBind.substring(sepIndex + 1).trim()
+                    let bindingJson = ""
+
+                    if (bindingStr.startsWith('{')) {
+                        bindingJson =
+                            bindingStr
+                                .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3')
+                                .replace(/(:\s*)'([\w\s\n\r!"#$%&()*+,-./:;<=>?@[\]^_`{|}~]+)'/g, '$1"$2"')
+                    }
+                    else if (/^true$/i.test(bindingStr)) {
+                        bindingJson = true
+                    }
+                    else if (/^false$/i.test(bindingStr)) {
+                        bindingJson = false
+                    }
+                    else if (/[a-z]/i.test(bindingStr)) {
+                        bindingJson = bindingStr.replace(/^['"\s]*(\w+)['"\s]*$/gi, '"$1"')
+                    }
+                    else {
+                        bindingJson = bindingStr
+                    }
+
+                    let binding;
+
+                    try {
+                        binding = JSON.parse(`{"__weld__":${bindingJson}}`)
+                    } catch (error) {
+                        console.error('The following binding is invalid: \n' + dataBind, error)
+                        binding = {}
+                    }
+                    binders[name](el, binding.__weld__, targets)
+                }
+            }
+        }
     }
 
-    function getAttr(el, key) {
-      var attr = el.getAttributeNode(key);
-      return attr ? attr.value : null;
+    if (typeof define === 'function' && define.amd) {
+        define(function () { return weld; });
     }
-
-    function prepareBindingString(bindingStr) {
-      if (bindingStr.indexOf(':') < 0)
-        return bindingStr + ': null';
-      else 
-        return bindingStr.replace(/[\r\n]/g, '');
+    else if (typeof module !== 'undefined' && module.exports) {
+        module.exports = weld;
     }
-
-    function parseBindingString(el) {
-      var bindingStr = getAttr(el, 'data-weld');
-
-      if (bindingStr === null)
-        return null;
-
-      var fn = fn = 'return {' + prepareBindingString(bindingStr) + '}';
-      var binding;
-      var bindingName;
-      var bindingValue = null;
-      var additional = {};
-
-      try {        
-        var binding = new Function(fn)();
-      }
-      catch (e) {				
-        console.warn('Invalid binding string: ' + bindingStr);        
-      }
-
-      var keys = Object.keys(binding);
-      bindingName = keys[0];
-      bindingValue = binding[bindingName];
-      
-      if (keys.length > 1) {
-        delete binding[bindingName];
-        additional = binding;
-      }
-
-      return {
-        el: el,
-        name: bindingName,
-        value: bindingValue,
-        additional: additional
-      };
+    else {
+        GLOBAL.weld = weld;
     }
-
-    function traverseDomForBindings(el) {
-      for (var i = 0; i < el.children.length; i++)
-        traverseDomForBindings(el.children.item(i));
-
-      var binding = parseBindingString(el);
-      if (binding !== null)
-        _bindings.push(binding);
-    }
-
-    function unloadBindings() {
-      var removeEventListeners = function (el) {
-        return el.parentNode.replaceChild(el.cloneNode(true), el);
-      };
-      for (var i = 0; i < _bindings.length; i++)
-        removeEventListeners(_bindings[i].el);
-    }
-  };
-
-  var weld = weld();
-
-  //AMD.
-  if (typeof define === 'function' && define.amd) {
-    define(function () { return weld; });
-
-  // Node and other CommonJS-like environments that support module.exports.
-  } else if (typeof module !== 'undefined' && module.exports) {
-    module.exports = weld;
-
-  //Browser.
-  } else {
-    GLOBAL.weld = weld;
-  }
 })(this);

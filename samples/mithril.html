@@ -2,39 +2,47 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>weld.js + mithril.js Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js + mithril.js Example</title>
 </head>
 
 <body>
+    <h1>weld.js + mithril.js</h1>
 
-	<div data-weld="hello: 'pim'"></div>
+    <!-- a named component -->
+    <div data-bind="greet: 'pim'"></div>
 
-	<script src="../weld.js"></script>
-	<script src="https://unpkg.com/mithril/mithril.min.js"></script>
-	<script>
-		// A mithril component
-		function HelloWorld() {
-			return {
-				view: function (vnode) {			
-					var msg = 'hello ' + vnode.attrs.name;		
-					return m('div', msg);
-				}
-			}
-		}
-		
-		weld.addBinder('hello', function (el, name) {
-			// We encapsulate in a closure so we can pass arguemtns
-			m.mount(el, {
-				view: function () {					
-					return m(HelloWorld, { name: name });
-				}
-			})
-		});
+    <script src="./mithril.min.js"></script>
+    <script src="../weld.min.js"></script>
+    <script>
+        // A mithril component
+        function HelloWorld() {
+            let count = 0
 
-		weld.applyBindings();
-	</script>
+            function OnClick() {
+                count++
+            }
+
+            return {
+                view: function(vnode){
+                    var msg = 'Hello ' + vnode.attrs.name
+                    return m('div', [
+                        m('p', `${msg}. You clicked the button ${count} times.`),
+                        m('button', { onclick: OnClick }, 'Click me',),
+                    ])
+                }
+            }
+        }
+
+        // Bind the greet attribute to the HelloWorld component
+        weld.bind('greet', function (el, name) {
+            m.mount(el, { view: () => m(HelloWorld, { name: name }) })
+        })
+
+        // Initialize weld
+        weld.init()
+    </script>
 </body>
 
 </html>
