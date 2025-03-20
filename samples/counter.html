@@ -10,19 +10,19 @@
 <body>
     <h1>weld.js</h1>
 
-    <div wd-bind="counter">
+    <div wd-bind="counter" wd-attr="99">
         <p>You clicked the button <span wd-target="count">0</span> times</p>
         <button wd-target="clicker">Click me</button>
     </div>
 
     <script src="../weld.js"></script>
     <script>
-        weld.bind('counter', function (el, targets) {
-            let count = 0
-
+        weld.bind('counter', function (el, attr, targets) {
+            let count = attr
+            targets.count.textContent = count
             weld.el(targets.clicker, { onclick: () => {
                 count++
-                targets.count.innerText = count
+                targets.count.textContent = count
             }})
         })
 
