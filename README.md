@@ -214,10 +214,10 @@ Instead, using _weld_ we can declaratively inject our components removing any re
 We **love** [mithril.js](https://mithril.js.org/), so to demonstrate the concept, we'll use it in the following example.
 
 ```html
-<div wd-bind="greet: 'pim'"></div>
+<div wd-bind="counter" wd-attr="weld"></div>
 
-<script src="./mithril.min.js"></script>
-<script src="../weld.min.js"></script>
+<script src="https://unpkg.com/mithril@2.2.14/mithril.min.js"></script>
+<script src="../weld.js"></script>
 <script>
     // A mithril component
     function HelloWorld() {
@@ -228,7 +228,7 @@ We **love** [mithril.js](https://mithril.js.org/), so to demonstrate the concept
         }
 
         return {
-            view: function(vnode){
+            view: function (vnode) {
                 var msg = 'Hello ' + vnode.attrs.name
                 return m('div', [
                     m('p', `${msg}. You clicked the button ${count} times.`),
@@ -238,8 +238,7 @@ We **love** [mithril.js](https://mithril.js.org/), so to demonstrate the concept
         }
     }
 
-    // Bind the greet attribute to the HelloWorld component
-    weld.bind('greet', function (el, name) {
+    weld.bind('counter', function (el, name) {
         m.mount(el, { view: () => m(HelloWorld, { name: name }) })
     })
 
