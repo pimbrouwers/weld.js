@@ -151,6 +151,24 @@ it('should create element with text content', function () {
     expect(el.textContent).toBe('here')
 })
 
+it('should create element with text content from non-strings, non-objects', function () {
+    const elInt = weld.el('div', 1)
+    expect(elInt).toBeInstanceOf(HTMLDivElement)
+    expect(elInt.textContent).toBe('1')
+
+    const elFloat = weld.el('div', 1.1)
+    expect(elFloat).toBeInstanceOf(HTMLDivElement)
+    expect(elFloat.textContent).toBe('1.1')
+
+    const elTrue = weld.el('div', true)
+    expect(elTrue).toBeInstanceOf(HTMLDivElement)
+    expect(elTrue.textContent).toBe('true')
+
+    const elFalse = weld.el('div', false)
+    expect(elFalse).toBeInstanceOf(HTMLDivElement)
+    expect(elFalse.textContent).toBe('false')
+})
+
 it('should create element with id', function () {
     const el = weld.el('div#id')
     expect(el).toBeInstanceOf(HTMLDivElement)

@@ -84,7 +84,7 @@
             ? createElementFromString(tagOrElement)
             : tagOrElement
 
-        if (typeof textContent === 'string') {
+        if (typeof textContent === 'string' || typeof textContent === 'number' || typeof textContent === 'boolean') {
             el.textContent = textContent
         }
         else if (typeof textContent === 'object') {
