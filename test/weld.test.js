@@ -1,119 +1,6 @@
 const weld = require('../weld')
 
-afterAll(() => {
-    weld.apply()
-})
-
-it('empty binding', function () {
-    const binder = 'testEmpty'
-    weld.dom.append(document.body, createTestElement(binder))
-    weld.bind(binder, function (el) {
-        expect(true).toBe(true)
-    })
-})
-
-it('string binding single quotes', function () {
-    const binder = "testString"
-    const expected = "here"
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('string binding double quotes', function () {
-    const binder = "testString"
-    const expected = "here"
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('string binding no quotes', function () {
-    const binder = "testString"
-    const expected = "here"
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('float binding value', function () {
-    const binder = "testInt"
-    const expected = 1
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('int binding value', function () {
-    const binder = "testFloat"
-    const expected = 1.0
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('boolean binding value', function () {
-    const binder = "testBoolean"
-    const expected = true
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr).toBe(expected)
-    })
-})
-
-it('object literal binding value', function () {
-    const binder = "testObjectLiteral"
-    const expected = "{ name: 'weld', version: 1, awesome: true }"
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr.name).toBe('weld')
-        expect(attr.version).toBe(1)
-        expect(attr.awesome).toBe(true)
-    })
-})
-
-it('JSON binding value', function () {
-    const binder = "testJsonLiteral"
-    const expected = JSON.stringify({ name: "weld", "version": 1, "awesome": true })
-    weld.dom.append(document.body, createTestElement(binder, expected))
-    weld.bind(binder, function (el, attr) {
-        expect(attr.name).toBe('weld')
-        expect(attr.version).toBe(1)
-        expect(attr.awesome).toBe(true)
-    })
-})
-
-it('single target', function () {
-    const binder = "testTarget"
-    const parentElement = createTestElement(binder)
-    parentElement.innerHTML = '<div wd-target="testTarget"></div>'
-    weld.dom.append(document.body, parentElement)
-
-    weld.bind(binder, function (el, targets) {
-        expect(targets).toHaveProperty('testTarget')
-    })
-})
-
-it('multiple targets', function () {
-    const binder = "testTargets"
-    const expected = "here"
-    const parentElement = createTestElement(binder, expected)
-    parentElement.innerHTML = '<div wd-target="testTarget"></div><div wd-target="testTarget2"></div>'
-    weld.dom.append(document.body, parentElement)
-
-    weld.bind(binder, function (el, attr, targets) {
-        expect(attr).toBe(expected)
-        expect(targets).toHaveProperty('testTarget')
-        expect(targets).toHaveProperty('testTarget2')
-    })
-})
-
-function createTestElement(bindingName, bindingAttr) {
+const createTestElement = (bindingName, bindingAttr) => {
     let props = { 'wd-bind': bindingName }
 
     if (bindingAttr) {
@@ -123,9 +10,145 @@ function createTestElement(bindingName, bindingAttr) {
     return weld.el('div', props)
 }
 
+it('empty binding', function () {
+    const binder = 'testEmpty'
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder))
+    weld.bind(binder, function (el) {
+        expect(true).toBe(true)
+    })
+    weld.apply(rootEl)
+})
+
+it('string binding single quotes', function () {
+    const binder = "testString"
+    const expected = "here"
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('string binding double quotes', function () {
+    const binder = "testString"
+    const expected = "here"
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('string binding no quotes', function () {
+    const binder = "testString"
+    const expected = "here"
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('float binding value', function () {
+    const binder = "testInt"
+    const expected = 1
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('int binding value', function () {
+    const binder = "testFloat"
+    const expected = 1.0
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('boolean binding value', function () {
+    const binder = "testBoolean"
+    const expected = true
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr).toBe(expected)
+    })
+    weld.apply(rootEl)
+})
+
+it('object literal binding value', function () {
+    const binder = "testObjectLiteral"
+    const expected = "{ name: 'weld', version: 1, awesome: true }"
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr.name).toBe('weld')
+        expect(attr.version).toBe(1)
+        expect(attr.awesome).toBe(true)
+    })
+    weld.apply(rootEl)
+})
+
+it('JSON binding value', function () {
+    const binder = "testJsonLiteral"
+    const expected = JSON.stringify({ name: "weld", "version": 1, "awesome": true })
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, createTestElement(binder, expected))
+    weld.bind(binder, function (el, attr) {
+        expect(attr.name).toBe('weld')
+        expect(attr.version).toBe(1)
+        expect(attr.awesome).toBe(true)
+    })
+    weld.apply(rootEl)
+})
+
+it('single target', function () {
+    const binder = "testTarget"
+    const parentElement = createTestElement(binder)
+    parentElement.innerHTML = '<div wd-target="testTarget"></div>'
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, parentElement)
+    weld.bind(binder, function (el, targets) {
+        expect(targets).toHaveProperty('testTarget')
+    })
+
+    weld.apply(rootEl)
+})
+
+it('multiple targets', function () {
+    const binder = "testTargets"
+    const expected = "here"
+    const parentElement = createTestElement(binder, expected)
+    parentElement.innerHTML = '<div wd-target="testTarget"></div><div wd-target="testTarget2"></div>'
+    const rootEl = weld.el('div')
+    weld.dom.append(rootEl, parentElement)
+    weld.bind(binder, function (el, attr, targets) {
+        expect(attr).toBe(expected)
+        expect(targets).toHaveProperty('testTarget')
+        expect(targets).toHaveProperty('testTarget2')
+    })
+    weld.apply(rootEl)
+})
+
 it('should create element', function () {
     const el = weld.el('div')
     expect(el).toBeInstanceOf(HTMLDivElement)
+})
+
+it('should create element with text content', function () {
+    const el = weld.el('div', 'here')
+    expect(el).toBeInstanceOf(HTMLDivElement)
+    expect(el.textContent).toBe('here')
 })
 
 it('should create element with id', function () {
@@ -149,14 +172,15 @@ it('should create element with id and classes', function () {
 })
 
 it('should create element with props', function () {
-    const el = weld.el('div', { innerHTML: 'hello' })
+    const el = weld.el('div', 'hello', { class: 'class1' })
     expect(el).toBeInstanceOf(HTMLDivElement)
-    expect(el.innerHTML).toBe('hello')
+    expect(el.textContent).toBe('hello')
+    expect(el.classList.contains('class1')).toBe(true)
 })
 
 it('should create element with props including event listeners', function () {
     const mockFn = jest.fn()
-    const el = weld.el('div', { innerHTML: 'hello', onclick: mockFn })
+    const el = weld.el('div', 'hello', { onclick: mockFn })
     expect(el).toBeInstanceOf(HTMLDivElement)
     expect(el.innerHTML).toBe('hello')
     el.click()
@@ -166,7 +190,7 @@ it('should create element with props including event listeners', function () {
 it('should absorb element and update props', function () {
     const el = weld.el('div')
     const mockFn = jest.fn()
-    weld.el(el, { innerHTML: 'hello', onclick: mockFn })
+    weld.el(el, 'hello', { onclick: mockFn })
     expect(el).toBeInstanceOf(HTMLDivElement)
     expect(el.innerHTML).toBe('hello')
     el.click()
@@ -187,7 +211,14 @@ it('should append multiple elements', function () {
     expect(parentEl.children.length).toBe(2)
 })
 
-it('should replace element content', function () {
+it('should replace element content with single element', function () {
+    const parentEl = weld.el('div')
+    weld.dom.append(parentEl, weld.el('div'))
+    weld.dom.set(parentEl, weld.el('div'))
+    expect(parentEl.children.length).toBe(1)
+})
+
+it('should replace element content with multiple elements', function () {
     const parentEl = weld.el('div')
     weld.dom.append(parentEl, weld.el('div'))
     weld.dom.set(parentEl, [weld.el('div'), weld.el('div')])
