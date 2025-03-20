@@ -15,9 +15,7 @@
     <script src="../weld.js"></script>
     <script>
         weld.bind('lazyLoad', function (el, src) {
-            const originalSrc = el.getAttribute('src')
-            el.setAttribute('src', src)
-            el.onerror = () => el.setAttribute('src', originalSrc)
+            weld.el(el, { src })
         })
         weld.apply()
     </script>

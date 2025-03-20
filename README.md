@@ -118,7 +118,7 @@ Weld comes with a few utilies to make creating and manipulating DOM elements eas
 
 ### Creating Elements
 
-The first is `weld.el()` which creates a new element. The first argument is the tag name, and the second is an object literal of attributes. Attributes can contrain id, class, data attributes and event listeners. Object keys prefixed with `on` with function values are automatically added as event listeners.
+The first is `weld.el()` which is a DOM swiss army knife. It can create new elements and modify existing ones. When the first argument is a string literal tag name, a new element will be creating. Attributes are provided as an object literal and can include event listeners, denoted by prefixing the attribute name with `on`.
 
 ```js
 const button = weld.el('button', {
@@ -138,8 +138,6 @@ There is also some shortcuts to make common tasks, like assigning IDs, classes a
 const button = weld.el('button#myButton.myClass', 'Click me', {
     onclick: () => alert('Hello world') })
 ```
-
-### Manipulating Elements
 
 `weld.el()` can also be used to augment existing elements. By passing an element as the first argument, the attributes and content are applied to the element. This is useful when working with named targets.
 
@@ -161,6 +159,8 @@ const button = weld.el('button#myButton.myClass', 'Click me', {
     weld.apply()
 </script>
 ```
+
+### Manipulating Elements
 
 When manipulating element content, you are typically either appending content or replacing it. Weld provides two functions for this, `weld.dom.append()` and `weld.dom.set()`. Both functions take an element as the first parameter and one or more elements as the second parameter.
 
@@ -197,9 +197,7 @@ const all = weld.dom.find(container, 'div.classfind')
 <img wd-bind="lazyLoad" wd-attr="image.jpg" src="placeholder.jpg">
 <script>
     weld.bind('lazyLoad', function (el, src) {
-        const originalSrc = el.getAttribute('src')
-        el.setAttribute('src', src)
-        el.onerror = () => el.setAttribute('src', originalSrc)
+        weld.el(el, { src })
     })
     weld.apply()
 </script>
