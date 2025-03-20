@@ -29,31 +29,31 @@ npm install weld.js --save
 
 ## Usage
 
-Attaching functionality to DOM elements is achieved using the custom attribute `data-weld="binderName: ..."`, where "binderName" is the identifer for a binder defined using `weld.addBinder()`.
+Attaching functionality to DOM elements is achieved using the custom attribute `wd-bind="binderName: ..."`, where "binderName" is the identifer for a binder defined using `weld.addBinder()`.
 
 ```html
 <!-- a basic binding -->
-<div data-bind="greet"></div>
+<div wd-bind="greet"></div>
 
 <!-- passing a string -->
-<div data-bind="greetString: pim"></div>
+<div wd-bind="greetString: pim"></div>
 
 <!-- passing an integer  -->
-<div data-bind="greetString: 1"></div>
+<div wd-bind="greetString: 1"></div>
 
 <!-- designating a named target -->
-<div data-bind="greetTarget: pim">
-    <div data-target=greeting></div>
+<div wd-bind="greetTarget: pim">
+    <div wd-target=greeting></div>
 </div>
 
 <!-- using an object literal -->
-<div data-bind="greetObject: {name:'pim'}"></div>
+<div wd-bind="greetObject: {name:'pim'}"></div>
 
 <!-- using multiple attrbutes -->
-<div data-bind="greetMulti: {name:'pim', greeting:'Howdy', intVal: 1, boolVal: true}">
+<div wd-bind="greetMulti: {name:'pim', greeting:'Howdy', intVal: 1, boolVal: true}">
     <div>
-        <span data-target=greeting></span>
-        <span data-target=name></span>
+        <span wd-target=greeting></span>
+        <span wd-target=name></span>
     </div>
 </div>
 
@@ -104,7 +104,7 @@ Instead, using weld.js we can declaratively inject our components removing any r
 ### An example using [mithril.js](https://mithril.js.org/):
 
 ```html
-<div data-bind="greet: 'pim'"></div>
+<div wd-bind="greet: 'pim'"></div>
 
 <script src="./mithril.min.js"></script>
 <script src="../weld.min.js"></script>

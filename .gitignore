@@ -1,3 +1,5 @@
+*.sandbox.*
+
 # Logs
 logs
 *.log

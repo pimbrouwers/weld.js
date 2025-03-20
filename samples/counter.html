@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js Example</title>
+</head>
+
+<body>
+    <h1>weld.js</h1>
+
+    <div wd-bind="counter">
+        <p>You clicked the button <span wd-target="count">0</span> times</p>
+        <button wd-target="clicker">Click me</button>
+    </div>
+
+    <script src="../weld.js"></script>
+    <script>
+        weld.bind('counter', function (el, targets) {
+            let count = 0
+
+            weld.el(targets.clicker, { onclick: () => {
+                count++
+                targets.count.innerText = count
+            }})
+        })
+
+        weld.apply()
+    </script>
+</body>
+
+</html>

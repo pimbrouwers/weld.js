@@ -5,40 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>weld.js Example</title>
+    <script src="../weld.js"></script>
 </head>
 
 <body>
     <h1>weld.js</h1>
 
     <!-- a basic binding -->
-    <div data-bind="greet"></div>
+    <div wd-bind="greet"></div>
 
     <!-- passing a string -->
-    <div data-bind="greetString: pim"></div>
+    <div wd-bind="greetString" wd-attr="weld"></div>
 
     <!-- passing an integer  -->
-    <div data-bind="greetString: 1"></div>
+    <div wd-bind="greetString" wd-attr="1"></div>
 
     <!-- passing an boolean  -->
-    <div data-bind="greetString: false"></div>
+    <div wd-bind="greetString" wd-attr="false"></div>
 
     <!-- designating a named target -->
-    <div data-bind="greetTarget: pim">
-        <div data-target=greeting></div>
+    <div wd-bind="greetTarget" wd-attr="weld">
+        <div wd-target=greeting></div>
     </div>
 
     <!-- using an object literal -->
-    <div data-bind="greetObject: {name:'pim'}"></div>
+    <div wd-bind="greetObject" wd-attr="{ name: 'weld' }"></div>
 
     <!-- using multiple attrbutes -->
-    <div data-bind="greetMulti: {name:'pim', greeting:'Howdy', intVal: 1, boolVal: true}">
+    <div wd-bind="greetMulti" wd-attr="{ name: 'weld', greeting: 'Howdy'} ">
         <div>
-            <span data-target=greeting></span>
-            <span data-target=name></span>
+            <span wd-target=greeting></span>
+            <span wd-target=name></span>
         </div>
     </div>
-
-    <script src="../weld.js"></script>
     <script>
         weld.bind('greet', function (el) {
             el.innerHTML = 'Hello world'
@@ -68,7 +67,7 @@
             targets.name.innerHTML = name
         })
 
-        weld.init()
+        weld.apply()
     </script>
 </body>
 
