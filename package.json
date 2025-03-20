@@ -1,6 +1,6 @@
 {
   "name": "weld.js",
-  "version": "3.0.0",
+  "version": "3.0.0-beta.0",
   "description": "Declarative DOM Bindings for great good.",
   "main": "weld",
   "browser": "weld.js",
@@ -21,7 +21,7 @@
     "declarative",
     "bindings"
   ],
-  "author": "Pim Brouwers & contributors",
+  "author": "East City Software, Pim Brouwers & contributors",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/eastcitysoftware/weld/issues"
