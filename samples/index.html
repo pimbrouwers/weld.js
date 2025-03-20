@@ -41,31 +41,31 @@
     <script src="../weld.js"></script>
     <script>
         weld.bind('greet', function (el) {
-            el.innerHTML = 'Hello world'
+            weld.el(el, 'Hello world')
         })
 
         weld.bind('greetString', function (el, attr) {
             const message = 'Hello ' + attr
-            el.innerHTML = message
+            weld.el(el, message)
         })
 
         weld.bind('greetTarget', function (el, attr, targets) {
             const message = 'Hello ' + attr
             targets.greeting ?
-                targets.greeting.innerHTML = message :
-                el.innerHTML = message
+                weld.el(targets.greeting, message) :
+                weld.el(el, message)
         })
 
         weld.bind('greetObject', function (el, attr) {
             const message = 'Hello ' + attr.name
-            el.innerHTML = message
+            weld.el(el, message)
         })
 
         weld.bind('greetMulti', function (el, attr, targets) {
             const greeting = attr.greeting ? attr.greeting : "Hello"
             const name = attr.name ? attr.name : "world"
-            targets.greeting.innerHTML = greeting
-            targets.name.innerHTML = name
+            weld.el(targets.greeting, greeting)
+            weld.el(targets.name, name)
         })
 
         weld.apply()

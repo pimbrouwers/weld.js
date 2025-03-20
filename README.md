@@ -40,7 +40,7 @@ Attaching functionality to DOM elements is achieved using the custom attribute `
 <div wd-bind="greet"></div>
 <script>
     weld.bind('greet', function (el) {
-        el.innerHTML = 'Hello world'
+        weld.el(el, 'Hello world')
     })
 
     weld.apply()
@@ -65,12 +65,12 @@ You can also pass parameters to the binder using the `wd-attr` attribute. This c
 <script>
     weld.bind('greetValue', function (el, attr) {
         const message = 'Hello ' + attr
-        el.innerHTML = message
+        weld.el(el, message)
     })
 
     weld.bind('greetComplex', function (el, attr) {
         const message = 'Hello ' + attr.name
-        el.innerHTML = message
+        weld.el(el, message)
     })
 
     weld.apply()
@@ -97,15 +97,15 @@ Declaratively define named targets using the `wd-target` attribute. This gives y
     weld.bind('greetTarget', (el, attr, targets) => {
         const message = 'Hello ' + attr
         targets.greeting ?
-            targets.greeting.innerHTML = message :
-            el.innerHTML = message
+            weld.el(targets.greeting, message) :
+            weld.el(el, message)
     })
 
     weld.bind('greetMulti', (el, attr, targets) => {
         const greeting = attr.greeting ? attr.greeting : "Hello"
         const name = attr.name ? attr.name : "world"
-        targets.greeting.innerHTML = greeting
-        targets.name.innerHTML = name
+        weld.el(targets.greeting, greeting)
+        weld.el(targets.name, name)
     })
 
     weld.apply()
