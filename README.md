@@ -1,6 +1,6 @@
 # weld.js
 
-[![Build Status](https://travis-ci.org/pimbrouwers/weld.js.svg?branch=master)](https://travis-ci.org/pimbrouwers/weld.js)
+[![build](https://github.com/pimbrouwers/weld.js/actions/workflows/build.yml/badge.svg)](https://github.com/pimbrouwers/weld.js/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
@@ -11,9 +11,7 @@ Declarative DOM bindings for great good.
 
 ## Getting Started
 
-One of the first things you learn after spending some time with JavaScript is that DOM selectors are tricky. We often rely on classes and sometimes id's for this. Creating this invisible association between your CSS and JavaScript, which becomes a maintenance nightmare. Especially troublesome for teams, and onboarding new developers.
-
-> We essentially ask CSS selectors to also become "JavaScript hooks", which violates one of the core tenants of software developent, single-responsibility principle.
+Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/pimbrouwers/weld.js/blob/master/weld.js) it in your project. But it's also available via npm and CDN.
 
 ### CDN
 
@@ -26,6 +24,14 @@ One of the first things you learn after spending some time with JavaScript is th
 ```bash
 npm install weld.js --save
 ```
+
+## Why?
+
+The main goal of this library is to make it obvious where client-side behavior exists. And stop relying on CSS selectors to associate JavaScript functionality to the DOM.
+
+This is achieved by attaching functionality to DOM elements using the custom attribute `wd-bind="name"`, where "name" is the identifer for a binding defined using `weld.bind()`. Bindings can be passed parameters using the `wd-attr` attribute. Named targets can be designated using the `wd-target` attribute, giving you keyed access to elements within the binding scope.
+
+This library provides to aim only what is necessary and nothing more. It is not a replacement for a full-fledged JavaScript framework, but rather a tool to help you write better, more maintainable code for multi-page applications.
 
 ## Usage
 
