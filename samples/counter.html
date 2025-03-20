@@ -19,10 +19,10 @@
     <script>
         weld.bind('counter', function (el, attr, targets) {
             let count = attr
-            targets.count.textContent = count
+            weld.el(targets.count, count)
             weld.el(targets.clicker, { onclick: () => {
                 count++
-                targets.count.textContent = count
+                weld.el(targets.count, count)
             }})
         })
 

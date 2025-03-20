@@ -81,7 +81,7 @@ Declaratively define named targets using the `wd-target` attribute. This gives y
 
 ```html
 <!-- designating a named target -->
-<div wd-bind="greetTarget: pim">
+<div wd-bind="greetTarget" wd-attr="pim">
     <div wd-target=greeting></div>
 </div>
 
@@ -108,7 +108,7 @@ Declaratively define named targets using the `wd-target` attribute. This gives y
         targets.name.innerHTML = name
     })
 
-    weld.init()
+    weld.apply()
 </script>
 ```
 
@@ -140,6 +140,27 @@ const button = weld.el('button#myButton.myClass', 'Click me', {
 ```
 
 ### Manipulating Elements
+
+`weld.el()` can also be used to augment existing elements. By passing an element as the first argument, the attributes and content are applied to the element. This is useful when working with named targets.
+
+```html
+<div wd-bind="counter" wd-attr="99">
+    <p>You clicked the button <span wd-target="count">0</span> times</p>
+    <button wd-target="clicker">Click me</button>
+</div>
+<script>
+    weld.bind('counter', function (el, attr, targets) {
+        let count = attr
+        weld.el(targets.count, count)
+        weld.el(targets.clicker, { onclick: () => {
+            count++
+            weld.el(targets.count, count)
+        }})
+    })
+
+    weld.apply()
+</script>
+```
 
 When manipulating element content, you are typically either appending content or replacing it. Weld provides two functions for this, `weld.dom.append()` and `weld.dom.set()`. Both functions take an element as the first parameter and one or more elements as the second parameter.
 
