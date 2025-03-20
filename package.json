@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pimbrouwers/weld.js.git"
+    "url": "git+https://github.com/eastcitysoftware/weld.git"
   },
   "keywords": [
     "dom",
@@ -24,9 +24,9 @@
   "author": "Pim Brouwers & contributors",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/pimbrouwers/weld.js/issues"
+    "url": "https://github.com/eastcitysoftware/weld/issues"
   },
-  "homepage": "https://github.com/pimbrouwers/weld.js#readme",
+  "homepage": "https://github.com/eastcitysoftware/weld#readme",
   "dependencies": {},
   "devDependencies": {
     "jest": "^29.7.0",

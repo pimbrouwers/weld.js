@@ -1,13 +1,13 @@
 # weld.js
 
-[![build](https://github.com/pimbrouwers/weld.js/actions/workflows/build.yml/badge.svg)](https://github.com/pimbrouwers/weld.js/actions/workflows/build.yml)
+[![build](https://github.com/eastcitysoftware/weld/actions/workflows/build.yml/badge.svg)](https://github.com/eastcitysoftware/weld/actions/workflows/build.yml)
 [![npm Version](https://img.shields.io/npm/v/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
 Declarative DOM bindings for great good.
 
-> Don't select it, [weld](https://github.com/pimbrouwers/weld.js) it.
+> Don't select it, [weld](https://github.com/eastcitysoftware/weld) it.
 
 ## Introduction
 
@@ -17,7 +17,7 @@ This is achieved by attaching functionality to DOM elements using the custom att
 
 ## Getting Started
 
-Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/pimbrouwers/weld.js/blob/master/weld.js) it in your project. But it's also available via npm and CDN.
+Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/eastcitysoftware/weld/blob/master/weld.js) it in your project. But it's also available via npm and CDN.
 
 ### CDN
 
@@ -248,8 +248,8 @@ We **love** [mithril.js](https://mithril.js.org/), so to demonstrate the concept
 
 ## Find a bug?
 
-There's an [issue](https://github.com/pimbrouwers/weld.js/issues) for that.
+There's an [issue](https://github.com/eastcitysoftware/weld/issues) for that.
 
 ## License
 
-Licensed under [Apache License 2.0](https://github.com/pimbrouwers/weld.js/blob/master/LICENSE).
+Licensed under [Apache License 2.0](https://github.com/eastcitysoftware/weld/blob/master/LICENSE).
