@@ -137,7 +137,7 @@ button.click() // alerts 'Hello world'
 There is also some shortcuts to make common tasks, like assigning IDs, classes and text content. Below is the same example as above, but using the shortcuts.
 
 ```js
-const button = weld.el('button#myButton#myClass', 'Click me', {
+const button = weld.el('button#myButton.myClass', 'Click me', {
     onclick: () => alert('Hello world') })
 ```
 
