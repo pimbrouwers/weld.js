@@ -9,6 +9,12 @@ Declarative DOM bindings for great good.
 
 > Don't select it, [weld](https://github.com/pimbrouwers/weld.js) it.
 
+## Introduction
+
+The main goal of this library is to make it obvious where client-side behavior exists. And stop relying on CSS selectors to associate JavaScript functionality to the DOM. Providing only what is necessary and nothing more. It is not a replacement for a full-fledged JavaScript framework. But rather a tool to help you write better, more maintainable code for multi-page applications.
+
+This is achieved by attaching functionality to DOM elements using the custom attribute `wd-bind="name"`, where "name" is the identifer for a binding defined using `weld.bind()`. Bindings can be passed parameters using the `wd-attr` attribute. Named targets can be designated using the `wd-target` attribute, giving you keyed access to elements within the binding scope.
+
 ## Getting Started
 
 Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/pimbrouwers/weld.js/blob/master/weld.js) it in your project. But it's also available via npm and CDN.
@@ -24,12 +30,6 @@ Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/pimbr
 ```bash
 npm install weld.js --save
 ```
-
-## Why?
-
-The main goal of this library is to make it obvious where client-side behavior exists. And stop relying on CSS selectors to associate JavaScript functionality to the DOM. Providing only what is necessary and nothing more. It is not a replacement for a full-fledged JavaScript framework. But rather a tool to help you write better, more maintainable code for multi-page applications.
-
-This is achieved by attaching functionality to DOM elements using the custom attribute `wd-bind="name"`, where "name" is the identifer for a binding defined using `weld.bind()`. Bindings can be passed parameters using the `wd-attr` attribute. Named targets can be designated using the `wd-target` attribute, giving you keyed access to elements within the binding scope.
 
 ## Usage
 
