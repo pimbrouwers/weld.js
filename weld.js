@@ -5,16 +5,16 @@
         _binders: {},
         apply(el = document.body) { applyBindings(el) },
         bind(name, fn) { this._binders[name] = fn },
-        el(tagOrElement, props) { return createOrModifyElement(tagOrElement, props) },
         dom: {
             append(el, children) { appendElements(el, children) },
             find(selector, el = document.body) { return el.querySelectorAll(selector) },
             get(selector, el = document.body) { return el.querySelector(selector) },
-            set(el, children) { el.replaceChildren(...children) }
-        }
+            set(el, children) { replaceElements(el, children) }
+        },
+        el(tagOrElement, props, textContent) { return createOrModifyElement(tagOrElement, props, textContent) }
     }
 
-    const applyBindings = root => {
+    function applyBindings(root) {
         const els = root.querySelectorAll('[data-wd-bind], [wd-bind]')
 
         for (const el of els) {
@@ -39,7 +39,7 @@
         }
     }
 
-    const parseDataAttr = value => {
+    function parseDataAttr(value) {
         if (!value) {
             return null
         }
@@ -79,28 +79,35 @@
         }
     }
 
-    const createOrModifyElement = (tagOrElement, props = {}) => {
+    function createOrModifyElement(tagOrElement, textContent, props) {
         const el = typeof tagOrElement === 'string'
             ? createElementFromString(tagOrElement)
-            : tagOrElement;
+            : tagOrElement
 
-        if (props) {
+        if (typeof textContent === 'string') {
+            el.textContent = textContent
+        }
+        else if (typeof textContent === 'object') {
+            props = textContent
+        }
+
+        if (props && typeof props === 'object') {
             for (const key in props) {
                 if (key.startsWith('on') && typeof props[key] === 'function') {
-                    el.addEventListener(key.slice(2).toLowerCase(), props[key]);
+                    el.addEventListener(key.slice(2).toLowerCase(), props[key])
                 }
                 else if (key in el && el[key] !== props[key]) {
-                    el[key] = props[key];
+                    el[key] = props[key]
                 }
                 else if (!el.hasAttribute(key) || el.getAttribute(key) !== props[key]) {
-                    el.setAttribute(key, props[key]);
+                    el.setAttribute(key, props[key])
                 }
             }
         }
-        return el;
-    };
+        return el
+    }
 
-    const createElementFromString = (decoratedTag) => {
+    function createElementFromString(decoratedTag) {
         let tag, id, classes = []
 
         const matches = [...decoratedTag.matchAll(/([#.]*)(\w+)/ig)]
@@ -130,17 +137,28 @@
         return el
     }
 
-    const appendElements = (el, children) => {
-        if (!Array.isArray(children)) children = [children]
+    function appendElements(el, children) {
+        if (!Array.isArray(children)) {
+            children = [children]
+        }
 
         const fragment = document.createDocumentFragment()
+
         for (const child of children) {
             if (child == null) {
                 continue
             }
             fragment.appendChild(typeof child === 'string' ? document.createTextNode(child) : child)
         }
+
         el.appendChild(fragment)
+    }
+
+    function replaceElements(el, children) {
+        if (!Array.isArray(children)) {
+            children = [children]
+        }
+        el.replaceChildren(...children)
     }
 
     if (typeof define === 'function' && define.amd) {
