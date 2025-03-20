@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js Example</title>
+</head>
+
+<body>
+    <h1>weld.js</h1>
+
+    <div wd-bind="createEl"></div>
+
+    <br>
+
+    <div wd-bind="createElShortcut"></div>
+
+    <script src="../weld.js"></script>
+    <script>
+        weld.bind('createEl', el => {
+            weld.dom.append(el, weld.el('button', {
+                id: 'myButton',
+                className: 'myClass',
+                innerHTML: 'Click Me 1',
+                onclick: () => alert('Hello world 1')
+            }))
+        })
+        weld.bind('createElShortcut', el => {
+            const content =
+                weld.el('button#myButton.myClass', 'Click Me 2', {
+                        onclick: () => alert('Hello world 2')
+                    })
+            weld.dom.set(el, content)
+        })
+
+        weld.apply()
+    </script>
+</body>
+
+</html>

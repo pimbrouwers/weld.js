@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js Example</title>
+</head>
+
+<body>
+    <h1>weld.js</h1>
+
+    <img wd-bind="lazyLoad" wd-attr="https://placehold.co/600x400/FF0000/FFF" src="https://placehold.co/600x400">
+
+    <script src="../weld.js"></script>
+    <script>
+        weld.bind('lazyLoad', function (el, src) {
+            const originalSrc = el.getAttribute('src')
+            el.setAttribute('src', src)
+            el.onerror = () => el.setAttribute('src', originalSrc)
+        })
+        weld.apply()
+    </script>
+</body>
+
+</html>
