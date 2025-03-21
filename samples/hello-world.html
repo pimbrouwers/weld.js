@@ -19,7 +19,10 @@
     <script>
         weld.bind('greeter', (el, attr, targets) => {
             const setGreeting = (name = 'world') =>
-                weld.el(targets.output, `${attr.greeting} ${name}`);
+                weld.dom.set(targets.output, [
+                    `${attr.greeting} `,
+                    weld.el('strong', name)
+                ]);
 
             setGreeting();
 

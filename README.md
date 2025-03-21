@@ -16,14 +16,17 @@ Declarative DOM bindings for great good. Don't select it, [weld](https://github.
 <script>
     weld.bind('greeter', (el, attr, targets) => {
         const setGreeting = (name = 'world') =>
-            weld.el(targets.output, `${attr.greeting} ${name}`)
+            weld.dom.set(targets.output, [
+                `${attr.greeting} `,
+                weld.el('strong', name)
+            ]);
 
-        setGreeting()
+        setGreeting();
 
         weld.el(targets.input, {
             oninput: e => setGreeting(e.target.value)
-        })
-    })
+        });
+    });
 
     weld.apply()
 </script>
