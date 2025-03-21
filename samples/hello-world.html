@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weld.js Example</title>
+</head>
+
+<body>
+    <h1>weld.js</h1>
+
+    <div wd-bind="greeter" wd-attr="{ greeting: 'Hello' }">
+        <div wd-target="output"></div>
+        <input wd-target="input" type="text">
+    </div>
+
+    <script src="../weld.js"></script>
+    <script>
+        weld.bind('greeter', (el, attr, targets) => {
+            const setGreeting = (name = 'world') =>
+                weld.el(targets.output, `${attr.greeting} ${name}`);
+
+            setGreeting();
+
+            weld.el(targets.input, {
+                oninput: e => setGreeting(e.target.value)
+            });
+        });
+
+        weld.apply()
+    </script>
+</body>
+
+</html>

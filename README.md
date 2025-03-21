@@ -9,6 +9,28 @@ Declarative DOM bindings for great good.
 
 > Don't select it, [weld](https://github.com/eastcitysoftware/weld) it.
 
+```html
+<div wd-bind="greeter" wd-attr="{ greeting: 'Hello' }">
+    <div wd-target="output"></div>
+    <input wd-target="input" placeholder="enter name">
+</div>
+
+<script>
+    weld.bind('greeter', (el, attr, targets) => {
+        const setGreeting = (name = 'world') =>
+            weld.el(targets.output, `${attr.greeting} ${name}`)
+
+        setGreeting()
+
+        weld.el(targets.input, {
+            oninput: e => setGreeting(e.target.value)
+        })
+    })
+
+    weld.apply()
+</script>
+```
+
 ## Introduction
 
 The main goal of this library is to make it obvious where client-side behavior exists. And stop relying on CSS selectors to associate JavaScript functionality to the DOM. Providing only what is necessary and nothing more. It is not a replacement for a full-fledged JavaScript framework. But rather a tool to help you write better, more maintainable code for multi-page applications.
