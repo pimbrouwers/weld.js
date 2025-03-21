@@ -195,10 +195,34 @@ const all = weld.dom.find(container, 'div.classfind')
 
 ```html
 <img wd-bind="lazyLoad" wd-attr="image.jpg" src="placeholder.jpg">
+
 <script>
     weld.bind('lazyLoad', function (el, src) {
         weld.el(el, { src })
     })
+    weld.apply()
+</script>
+```
+
+
+### External Link Handler
+
+```html
+<main wd-bind=externalLink>
+    <p>This is an external link: <a href="https://www.github.com/eastcitysoftware">click here</a>.</p>
+    <p>If you click it a new tab will open. Click <a href="https://github.com/eastcitysoftware/weld">this one</a> to also open a new tab.</p>
+</main>
+
+<script>
+    weld.bind('externalLink', function (el) {
+        for (const anchor of weld.dom.find('a', el)) {
+            if (anchor.href
+                && anchor.href.startsWith('http')
+                && !anchor.target === '_blank') {
+                anchor.target = '_blank';
+            }
+        }
+    });
     weld.apply()
 </script>
 ```
