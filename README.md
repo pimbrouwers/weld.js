@@ -5,9 +5,7 @@
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
-Declarative DOM bindings for great good.
-
-> Don't select it, [weld](https://github.com/eastcitysoftware/weld) it.
+Declarative DOM bindings for great good. Don't select it, [weld](https://github.com/eastcitysoftware/weld) it.
 
 ```html
 <div wd-bind="greeter" wd-attr="{ greeting: 'Hello' }">

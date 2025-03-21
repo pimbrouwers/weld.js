@@ -22,7 +22,7 @@
         <button wd-target="myButton"></button>
     </div>
 
-    <script src="../weld.js"></script>
+    <script src="../weld.js" init></script>
     <script>
         weld.bind('createEl', el => {
             weld.dom.append(el, weld.el('button', {

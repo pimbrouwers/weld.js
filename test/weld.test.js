@@ -21,7 +21,7 @@ it('empty binding', function () {
 })
 
 it('string binding single quotes', function () {
-    const binder = "testString"
+    const binder = "testStringSingleQuotes"
     const expected = "here"
     const rootEl = weld.el('div')
     weld.dom.append(rootEl, createTestElement(binder, expected))
@@ -32,7 +32,7 @@ it('string binding single quotes', function () {
 })
 
 it('string binding double quotes', function () {
-    const binder = "testString"
+    const binder = "testStringQuotes"
     const expected = "here"
     const rootEl = weld.el('div')
     weld.dom.append(rootEl, createTestElement(binder, expected))
@@ -43,7 +43,7 @@ it('string binding double quotes', function () {
 })
 
 it('string binding no quotes', function () {
-    const binder = "testString"
+    const binder = "testStringNoQuotes"
     const expected = "here"
     const rootEl = weld.el('div')
     weld.dom.append(rootEl, createTestElement(binder, expected))
