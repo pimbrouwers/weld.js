@@ -18,13 +18,18 @@
     <script src="../weld.js"></script>
     <script>
         weld.bind('counter', function (el, attr, targets) {
-            let count = attr
-            weld.el(targets.count, count)
-            weld.el(targets.clicker, { onclick: () => {
-                count++
-                weld.el(targets.count, count)
-            }})
-        })
+            let count = attr;
+            const setCount = () => weld.el(targets.count, count);
+
+            setCount();
+
+            weld.el(targets.clicker, {
+                onclick: () => {
+                    count++;
+                    setCount();
+                }
+            });
+        });
 
         weld.apply()
     </script>
