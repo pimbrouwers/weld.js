@@ -208,8 +208,8 @@ const container = weld.el('div')
 weld.dom.append(container, weld.el('div.classfind'))
 weld.dom.append(container, weld.el('div.classfind'))
 
-const first = weld.dom.get(container, 'div.classfind')
-const all = weld.dom.find(container, 'div.classfind')
+const first = weld.dom.get('div.classfind', container)
+const all = weld.dom.find('div.classfind', container)
 ```
 
 ## Examples
