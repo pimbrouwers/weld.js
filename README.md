@@ -240,8 +240,7 @@ const all = weld.dom.find('div.classfind', container)
     weld.bind('externalLink', function (el) {
         for (const anchor of weld.dom.find('a', el)) {
             if (anchor.href
-                && anchor.href.startsWith('http')
-                && !anchor.target === '_blank') {
+                && anchor.href.startsWith('http')) {
                 anchor.target = '_blank';
             }
         }
