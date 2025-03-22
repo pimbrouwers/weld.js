@@ -13,32 +13,30 @@
     <div wd-bind="counter" wd-attr="weld"></div>
 
     <script src="https://unpkg.com/mithril@2.2.14/mithril.min.js"></script>
-    <script src="../weld.js"></script>
+    <script src="../weld.js" wd-apply></script>
     <script>
         // A mithril component
         function HelloWorld() {
-            let count = 0
+            let count = 0;
 
             function OnClick() {
-                count++
+                count++;
             }
 
             return {
                 view: function (vnode) {
-                    var msg = 'Hello ' + vnode.attrs.name
+                    var msg = 'Hello ' + vnode.attrs.name;
                     return m('div', [
                         m('p', `${msg}. You clicked the button ${count} times.`),
                         m('button', { onclick: OnClick }, 'Click me',),
-                    ])
+                    ]);
                 }
-            }
+            };
         }
 
         weld.bind('counter', function (el, name) {
-            m.mount(el, { view: () => m(HelloWorld, { name: name }) })
-        })
-
-        weld.apply()
+            m.mount(el, { view: () => m(HelloWorld, { name: name }) });
+        });
     </script>
 </body>
 

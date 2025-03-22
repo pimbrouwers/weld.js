@@ -16,7 +16,7 @@
             also open a new tab.</p>
     </main>
 
-    <script src="../weld.js"></script>
+    <script src="../weld.js" wd-apply></script>
     <script>
         weld.bind('externalLink', function (el) {
             for (const anchor of weld.dom.find('a', el)) {
@@ -26,7 +26,6 @@
                 }
             }
         });
-        weld.apply()
     </script>
 </body>
 

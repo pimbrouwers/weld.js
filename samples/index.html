@@ -38,37 +38,35 @@
         </div>
     </div>
 
-    <script src="../weld.js"></script>
+    <script src="../weld.js" wd-apply></script>
     <script>
         weld.bind('greet', function (el) {
-            weld.el(el, 'Hello world')
-        })
+            weld.el(el, 'Hello world');
+        });
 
         weld.bind('greetString', function (el, attr) {
-            const message = 'Hello ' + attr
-            weld.el(el, message)
-        })
+            const message = 'Hello ' + attr;
+            weld.el(el, message);
+        });
 
         weld.bind('greetTarget', function (el, attr, targets) {
-            const message = 'Hello ' + attr
+            const message = 'Hello ' + attr;
             targets.greeting ?
                 weld.el(targets.greeting, message) :
-                weld.el(el, message)
-        })
+                weld.el(el, message);
+        });
 
         weld.bind('greetObject', function (el, attr) {
-            const message = 'Hello ' + attr.name
-            weld.el(el, message)
-        })
+            const message = 'Hello ' + attr.name;
+            weld.el(el, message);
+        });
 
         weld.bind('greetMulti', function (el, attr, targets) {
-            const greeting = attr.greeting ? attr.greeting : "Hello"
-            const name = attr.name ? attr.name : "world"
-            weld.el(targets.greeting, greeting)
-            weld.el(targets.name, name)
-        })
-
-        weld.apply()
+            const greeting = attr.greeting ? attr.greeting : "Hello";
+            const name = attr.name ? attr.name : "world";
+            weld.el(targets.greeting, greeting);
+            weld.el(targets.name, name);
+        });
     </script>
 </body>
 

@@ -12,12 +12,11 @@
 
     <img wd-bind="lazyLoad" wd-attr="https://placehold.co/600x400/FF0000/FFF" src="https://placehold.co/600x400">
 
-    <script src="../weld.js"></script>
+    <script src="../weld.js" wd-apply></script>
     <script>
         weld.bind('lazyLoad', function (el, src) {
-            weld.el(el, { src })
-        })
-        weld.apply()
+            weld.el(el, { src });
+        });
     </script>
 </body>
 

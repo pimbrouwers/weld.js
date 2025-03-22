@@ -22,7 +22,7 @@
         <button wd-target="myButton"></button>
     </div>
 
-    <script src="../weld.js" init></script>
+    <script src="../weld.js" wd-apply></script>
     <script>
         weld.bind('createEl', el => {
             weld.dom.append(el, weld.el('button', {
@@ -30,24 +30,22 @@
                 className: 'myClass',
                 innerHTML: 'Click Me 1',
                 onclick: () => alert('Hello world 1')
-            }))
-        })
+            }));
+        });
 
         weld.bind('createElShortcut', el => {
             const content =
                 weld.el('button#myButton.myClass', 'Click Me 2', {
-                        onclick: () => alert('Hello world 2')
-                    })
-            weld.dom.set(el, content)
-        })
+                    onclick: () => alert('Hello world 2')
+                });
+            weld.dom.set(el, content);
+        });
 
         weld.bind('modifyNamedTarget', (el, targets) => {
             weld.el(targets.myButton, 'Click Me 3', {
                 onclick: () => alert('Hello world 3')
-            })
-        })
-
-        weld.apply()
+            });
+        });
     </script>
 </body>
 
