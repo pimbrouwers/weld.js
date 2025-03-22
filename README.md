@@ -5,7 +5,7 @@
 [![npm License](https://img.shields.io/npm/l/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 [![npm Downloads](https://img.shields.io/npm/dm/weld.js.svg)](https://www.npmjs.com/package/weld.js)
 
-Declarative DOM bindings for great good. Don't select it, [weld](https://github.com/eastcitysoftware/weld) it.
+Declarative DOM bindings for great good. Don't select it, _weld_ it.
 
 ```html
 <div wd-bind="greeter" wd-attr="{ greeting: 'Hello' }">
@@ -13,6 +13,7 @@ Declarative DOM bindings for great good. Don't select it, [weld](https://github.
     <input wd-target="input" placeholder="enter name">
 </div>
 
+<script src="weld.js" wd-apply></script>
 <script>
     weld.bind('greeter', (el, attr, targets) => {
         const setGreeting = (name = 'world') =>
@@ -27,8 +28,6 @@ Declarative DOM bindings for great good. Don't select it, [weld](https://github.
             oninput: e => setGreeting(e.target.value)
         });
     });
-
-    weld.apply()
 </script>
 ```
 
@@ -40,7 +39,7 @@ This is achieved by attaching functionality to DOM elements using the custom att
 
 ## Getting Started
 
-Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/eastcitysoftware/weld/blob/master/weld.js) it in your project. But it's also available via npm and CDN.
+Weld is roughly 175LOC so you can easily [copy + paste](https://github.com/eastcitysoftware/weld/blob/master/weld.js) it in your project. But it's also available via npm and CDN. **Designed** for [no build](https://world.hey.com/dhh/you-can-t-get-faster-than-no-build-7a44131c) client-side development, but also supports ES6 modules and bundlers.
 
 ### CDN
 
@@ -226,7 +225,6 @@ const all = weld.dom.find('div.classfind', container)
     weld.apply()
 </script>
 ```
-
 
 ### External Link Handler
 
