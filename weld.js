@@ -2,7 +2,6 @@
     'use strict';
 
     const weld = {
-        _isBound: false,
         _binders: {},
         apply(el = document.body) { applyBindings(el); },
         bind(name, fn) { addBinder(name, fn); },
@@ -16,10 +15,6 @@
     };
 
     function applyBindings(root) {
-        if (weld._isBound) {
-            return;
-        }
-
         const els = root.querySelectorAll('[data-wd-bind], [wd-bind]');
 
         for (const el of els) {
@@ -42,8 +37,6 @@
                 weld._binders[name](el, attr, targets);
             }
         }
-
-        weld._isBound = true;
     }
 
     function parseDataAttr(value) {
@@ -183,8 +176,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const scriptElements = document.querySelectorAll('script[wd-init]');
-        if (scriptElements.length > 0 && !weld._isBound) {
+        const scriptElements = document.querySelectorAll('script[wd-apply]');
+        if (scriptElements.length > 0) {
             weld.apply();
         }
     });
